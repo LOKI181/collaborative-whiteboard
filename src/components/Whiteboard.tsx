@@ -6,7 +6,6 @@ import { Toolbar } from './Toolbar';
 import { UserPanel } from './UserPanel';
 import { UserCursors } from './UserCursors';
 
-
 export const Whiteboard: React.FC = () => {
   const {
     strokes,
@@ -65,8 +64,14 @@ export const Whiteboard: React.FC = () => {
   return (
     <div className="whiteboard-app">
       <header className="app-header">
+        <div className="header-logo">🎨</div>
         <h1>CollabBoard</h1>
         <span className="subtitle">Real-Time Collaborative Whiteboard</span>
+        <div className="header-spacer" />
+        <div className="header-status">
+          <span className="status-dot" />
+          {activeUsers.length + 1} connected
+        </div>
       </header>
 
       <Toolbar
@@ -93,15 +98,24 @@ export const Whiteboard: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           />
           <UserCursors users={activeUsers} />
+          <div className="shortcuts-hint">
+            <span className="shortcut"><kbd>P</kbd> Pen</span>
+            <span className="shortcut"><kbd>L</kbd> Line</span>
+            <span className="shortcut"><kbd>R</kbd> Rect</span>
+            <span className="shortcut"><kbd>C</kbd> Circle</span>
+            <span className="shortcut"><kbd>E</kbd> Eraser</span>
+            <span className="shortcut"><kbd>Ctrl+Z</kbd> Undo</span>
+          </div>
         </div>
         <UserPanel users={activeUsers} />
       </div>
 
       <footer className="app-footer">
-        <span>
-          {strokes.length} stroke{strokes.length !== 1 ? 's' : ''} |{' '}
-          {activeUsers.length + 1} user{activeUsers.length > 0 ? 's' : ''} connected
-        </span>
+        <span>{strokes.length} stroke{strokes.length !== 1 ? 's' : ''}</span>
+        <span className="footer-dot" />
+        <span>{activeUsers.length + 1} user{activeUsers.length > 0 ? 's' : ''}</span>
+        <span className="footer-dot" />
+        <span>Canvas API + React</span>
       </footer>
     </div>
   );
